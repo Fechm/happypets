@@ -13,4 +13,6 @@ public interface IPetService  {
     Pet buscarPetPorId(Long id);
 
     void borrarPetPorId(Long id);
+
+    void listarEnOrden(List<Pet> pets);
 }

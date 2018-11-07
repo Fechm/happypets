@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name ="person")
 public class Person implements Serializable {
     @Id
-    @Column(name = "id_email",nullable = false,unique = true)
+    @Column(name = "id_email",nullable = false,unique = true,length = 50)
     private String email;
 
     @OneToOne(fetch = FetchType.LAZY,optional = false)
