@@ -2,7 +2,9 @@ package com.thedevelopers.happypets.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="pet")
@@ -31,7 +33,9 @@ public class Pet implements Serializable {
 
     @Column(name = "especies")
     private String especies;
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pet",referencedColumnName = "id_pet")
+    private List<Picture> fotos = new ArrayList<>();
 
 
     public Pet() {
