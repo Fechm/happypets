@@ -13,7 +13,7 @@ public class Picture implements Serializable {
     @Column(name = "path_picture")
     private String picture;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_pet",referencedColumnName = "id_pet")
+    @JoinColumn(name = "id_pet",referencedColumnName = "id_pet",insertable = false,updatable = false)
     private Pet pet;
 
     public Picture() {
