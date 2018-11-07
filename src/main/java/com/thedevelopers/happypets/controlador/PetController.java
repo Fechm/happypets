@@ -17,12 +17,15 @@ public class PetController {
     private IPetService petService;
 
     @GetMapping(value = "/listar",produces = {"application/json"})
-    public @ResponseBody List<Pet> listar(){
+    public @ResponseBody List<Pet> listarMascotas(){
         List<Pet> pets = petService.buscarTodos();
         return pets;
     }
-    /*@GetMapping(value = "/form",produces = {""})
-    public void IngresarDatos(){
+    @GetMapping(value="/listarO",produces = {"application/json"})
+    public @ResponseBody List<Pet> listarMascotasOrdenadasPorNombre(){
+        List<Pet> temp = petService.buscarTodos();
+        petService.listarEnOrden(temp);
+        return temp;
+    }
 
-    }*/
 }
