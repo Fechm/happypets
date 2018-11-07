@@ -9,8 +9,12 @@ import java.util.Date;
 public class Pet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pet")
+    @Column(name = "id_pet",nullable = false,unique = true)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="propietario_email",referencedColumnName = "id_email",nullable = false,insertable = false,updatable = false)
+    private Person duenio;
 
     @Column(name = "nombre_pet")
     private String nombre;
@@ -22,6 +26,7 @@ public class Pet implements Serializable {
     private String propietario_email;
 
     @Column(name = "fechaDeNacimiento")
+    @Temporal(TemporalType.DATE)
     private Date fechaDeNacimiento;
 
     @Column(name = "especies")

@@ -1,6 +1,7 @@
 package com.thedevelopers.happypets.servicios;
 
 import com.thedevelopers.happypets.model.Person;
+import com.thedevelopers.happypets.model.Pet;
 import com.thedevelopers.happypets.repositorio.PersonDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,13 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public void borrarPersonaPorId(String id) {
         Person p = buscarPersonaPorId(id);
-        if(p.equals(id)){
+        if(p.getEmail().equals(id)){
             personDao.delete(p);
         }
+    }
+    /*Metodo por implementar para buscar todas las mascotas de una persona*/
+    @Override
+    public List<Pet> buscarTodasMascotas() {
+        return null;
     }
 }

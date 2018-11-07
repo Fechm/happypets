@@ -1,18 +1,22 @@
 package com.thedevelopers.happypets.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name ="person")
 public class Person implements Serializable {
     @Id
-    @Column(name = "id_email")
+    @Column(name = "id_email",nullable = false,unique = true)
     private String email;
+
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_email",referencedColumnName = "user_email")
+    private User user;
 
     @Column(name = "primer_nombre")
     private String primerNombre;
@@ -20,11 +24,12 @@ public class Person implements Serializable {
     @Column(name = "apellido")
     private String apellido;
 
-    @Column(name = "fecha_de_cumpleanios")
-    private Date fechaDeCumpleaños;
+    @Column(name = "fecha_de_nacimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechaDeNacimiento;
 
     @Column(name = "run")
-    private Integer run;
+    private Long run;
 
     @Column(name = "numero_de_telefono")
     private String nroTelefono;
@@ -36,7 +41,11 @@ public class Person implements Serializable {
     private String ciudad;
 
     @Column(name = "numero_de_calle")
-    private Integer nroCalle;
+    private Long nroCalle;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "propietario_email",referencedColumnName = "id_email")
+    private List<Pet> mascotas = new ArrayList<>();
 
     public Person() {
     }
@@ -47,6 +56,14 @@ public class Person implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Pet> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<Pet> mascotas) {
+        this.mascotas = mascotas;
     }
 
     public String getPrimerNombre() {
@@ -65,19 +82,19 @@ public class Person implements Serializable {
         this.apellido = apellido;
     }
 
-    public Date getFechaDeCumpleaños() {
-        return fechaDeCumpleaños;
+    public Date getFechaDeNacimiento() {
+        return fechaDeNacimiento;
     }
 
-    public void setFechaDeCumpleaños(Date fechaDeCumpleaños) {
-        this.fechaDeCumpleaños = fechaDeCumpleaños;
+    public void setFechaDeNacimiento(Date fechaDeNacimiento) {
+        this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
-    public Integer getRun() {
+    public Long getRun() {
         return run;
     }
 
-    public void setRun(Integer run) {
+    public void setRun(Long run) {
         this.run = run;
     }
 
@@ -105,11 +122,11 @@ public class Person implements Serializable {
         this.ciudad = ciudad;
     }
 
-    public Integer getNroCalle() {
+    public Long getNroCalle() {
         return nroCalle;
     }
 
-    public void setNroCalle(Integer nroCalle) {
+    public void setNroCalle(Long nroCalle) {
         this.nroCalle = nroCalle;
     }
 
@@ -117,14 +134,14 @@ public class Person implements Serializable {
     public String toString() {
         return "Person{" +
                 "email='" + email + '\'' +
-                ", primerNombre='" + primerNombre + '\'' +
+                ", primer Nombre='" + primerNombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", fechaDeCumpleaños=" + fechaDeCumpleaños +
+                ", fecha de nacimiento=" + fechaDeNacimiento +
                 ", run=" + run +
-                ", nroTelefono='" + nroTelefono + '\'' +
+                ", numero de telefono='" + nroTelefono + '\'' +
                 ", calle='" + calle + '\'' +
                 ", ciudad='" + ciudad + '\'' +
-                ", nroCalle=" + nroCalle +
+                ", numero de calle=" + nroCalle +
                 '}';
     }
 }
