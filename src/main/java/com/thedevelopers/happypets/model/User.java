@@ -1,5 +1,10 @@
 package com.thedevelopers.happypets.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,6 +16,7 @@ public class User implements Serializable {
     private String email;
     @Column(name = "password",nullable = false)
     private String password;
+
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_email")
     private Person userperson;
@@ -33,7 +39,7 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    @JsonIgnore
     public Person getUserpersonPerson() {
         return userperson;
     }
