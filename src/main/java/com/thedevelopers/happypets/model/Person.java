@@ -132,6 +132,9 @@ public class Person implements Serializable {
         this.nroCalle = nroCalle;
     }
 
+    public String getNombreCompleto(){
+        return this.primerNombre + " " + this.apellido;
+    }
     @Override
     public String toString() {
         return "Person{" +

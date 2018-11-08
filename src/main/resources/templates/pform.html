@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID:</th>
+        <th>Nombre:</th>
+        <th>Fecha de Nacimiento:</th>
+        <th>Especie:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "pet : ${pets}">
+
+        <td th:text="${pet.getId()}"></td>
+        <td th:text ="${pet.getNombre()}"></td>
+        <td th:text="${pet.getFechaDeNacimiento()}"></td>
+        <td th:text="${pet.getEspecies()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
