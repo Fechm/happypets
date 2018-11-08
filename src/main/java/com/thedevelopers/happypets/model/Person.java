@@ -1,6 +1,8 @@
 package com.thedevelopers.happypets.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ public class Person implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    @JsonIgnore
     public List<Pet> getMascotas() {
         return mascotas;
     }

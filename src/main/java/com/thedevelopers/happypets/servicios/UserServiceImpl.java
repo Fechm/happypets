@@ -20,7 +20,9 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public void registrarUser(User user) {
+
         userDao.save(user);
+
     }
 
     @Override
@@ -35,4 +37,5 @@ public class UserServiceImpl implements IUserService{
             userDao.delete(u);
         }
     }
+
 }
