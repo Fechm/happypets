@@ -4,6 +4,7 @@ import com.thedevelopers.happypets.model.Pet;
 import com.thedevelopers.happypets.servicios.IPetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,11 +22,13 @@ public class PetController {
         List<Pet> pets = petService.buscarTodos();
         return pets;
     }
-    @GetMapping(value="/listarO",produces = {"application/json"})
-    public @ResponseBody List<Pet> listarMascotasOrdenadasPorNombre(){
+    @GetMapping(value="/formO")
+    public String listarMascotasOrdenadasPorNombre(Model model, Pet pet){
+        model.addAttribute("pet",new Pet());
         List<Pet> temp = petService.buscarTodos();
         petService.listarEnOrden(temp);
-        return temp;
+        model.addAttribute("pets",temp);
+        return "pform";
     }
 
 }

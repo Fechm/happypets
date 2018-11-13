@@ -1,5 +1,7 @@
 package com.thedevelopers.happypets.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,6 +41,22 @@ public class Pet implements Serializable {
 
 
     public Pet() {
+    }
+    @JsonIgnore
+    public Person getDuenio() {
+        return duenio;
+    }
+
+    public void setDuenio(Person duenio) {
+        this.duenio = duenio;
+    }
+    @JsonIgnore
+    public List<Picture> getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(List<Picture> fotos) {
+        this.fotos = fotos;
     }
 
     public String getEspecies() {
