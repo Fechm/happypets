@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}"></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">HappyPets</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-label="Toggle Navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about" th:href="@{/pets/listar}">Mascotas</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container">
+    <h1 th:text="${titulo}"></h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID:</th>
+            <th>Nombre:</th>
+            <th>Fecha de Nacimiento:</th>
+            <th>Especie:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pet : ${pets}">
+            <td th:text="${pet.id}"></td>
+            <td th:text="${pet.nombre}"></td>
+            <td th:text="${pet.fechaDeNacimiento}"></td>
+            <td th:text="${pet.especies}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <td><a th:href="@{/pets/form}" type="button" class="btn btn-primary">Crear Mascota</a></td>
+</div>
+</body>
+</html>

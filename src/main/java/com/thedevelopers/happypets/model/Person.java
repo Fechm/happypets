@@ -2,8 +2,10 @@ package com.thedevelopers.happypets.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name ="person")
 public class Person implements Serializable {
+    @Email
     @Id
     @Column(name = "id_email",nullable = false,unique = true,length = 50)
     private String email;
@@ -28,6 +31,7 @@ public class Person implements Serializable {
 
     @Column(name = "fecha_de_nacimiento")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date fechaDeNacimiento;
 
     @Column(name = "run")
