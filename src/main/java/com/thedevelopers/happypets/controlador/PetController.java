@@ -56,6 +56,11 @@ public class PetController {
 
     @RequestMapping(value = "/form/{id}")
     public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
+        return "redirect:/pets/listar";
+    }
+
+    @RequestMapping(value = "/form/{id}")
+    public String Editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
         Pet pet = null;
         if (id > 0) {
             pet = petService.buscarPetPorId(id);
