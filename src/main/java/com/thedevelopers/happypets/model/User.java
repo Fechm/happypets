@@ -1,16 +1,14 @@
 package com.thedevelopers.happypets.model;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "User")
 public class User implements Serializable {
+    @Email
     @Id
     @Column(name = "user_email",nullable = false,unique = true)
     private String email;

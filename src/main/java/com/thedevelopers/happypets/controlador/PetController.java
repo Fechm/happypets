@@ -7,9 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/pets")
@@ -17,18 +18,35 @@ public class PetController {
     @Autowired
     private IPetService petService;
 
-    @GetMapping(value = "/listar",produces = {"application/json"})
-    public @ResponseBody List<Pet> listarMascotas(){
+    @GetMapping(value = "/listar")
+    public String listarMascotas(Model model, Pet pet) {
         List<Pet> pets = petService.buscarTodos();
-        return pets;
+        model.addAttribute("titulo", "Listado de mascotas");
+        model.addAttribute("pets", pets);
+        return "plist";
     }
-    @GetMapping(value="/formO")
+
+    @GetMapping(value = "/listarO")
     public String listarMascotasOrdenadasPorNombre(Model model, Pet pet){
-        model.addAttribute("pet",new Pet());
+        model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
         List<Pet> temp = petService.buscarTodos();
         petService.listarEnOrden(temp);
         model.addAttribute("pets",temp);
+        return "plist";
+    }
+
+    @RequestMapping(value = "/form")
+    public String crear(Map<String, Object> model) {
+        Pet pet = new Pet();
+        model.put("pet", pet);
+        model.put("titulo", "Formulario de mascota");
         return "pform";
+    }
+
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    public String guardar(Pet pet) {
+        petService.save(pet);
+        return "redirect:listar";
     }
 
 }

@@ -1,8 +1,11 @@
 package com.thedevelopers.happypets.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,20 +22,21 @@ public class Pet implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="propietario_email",referencedColumnName = "id_email",nullable = false,insertable = false,updatable = false)
     private Person duenio;
-
+    @NotNull
     @Column(name = "nombre_pet")
     private String nombre;
-
+    @Email
     @Column(name = "adoptante_email")
     private String adoptante_email;
-
+    @Email
     @Column(name = "propietario_email")
     private String propietario_email;
-
+    @NotNull
     @Column(name = "fechaDeNacimiento")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date fechaDeNacimiento;
-
+    @NotNull
     @Column(name = "especies")
     private String especies;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
