@@ -30,14 +30,17 @@ public class PetServiceImpl implements IPetService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Pet buscarPetPorId(Long id) {
         return em.find(Pet.class, id);
     }
 
+    @Transactional
     @Override
     public void borrarPetPorId(Long id) {
-
+        Pet pet = buscarPetPorId(id);
+        em.remove(pet);
     }
 
     @Override

@@ -32,6 +32,7 @@
             <th>Fecha de Nacimiento:</th>
             <th>Especie:</th>
             <th>Editar:</th>
+            <th>Eliminar:</th>
         </tr>
         </thead>
         <tbody>
@@ -41,6 +42,8 @@
             <td th:text="${pet.fechaDeNacimiento}"></td>
             <td th:text="${pet.especies}"></td>
             <td><a class="btn btn-primary btn-xs" th:href="@{/pets/form/} + ${pet.id}" th:text="'editar'"></a></td>
+            <td><a a class="btn btn-danger btn-xs" th:href="@{/pets/delete/} + ${pet.id}" th:text="'eliminar'"
+                   onclick="return confirm('Está seguro de eliminar esta mascota?')"></a></td>
         </tr>
         </tbody>
     </table>
