@@ -25,18 +25,30 @@
             <label class="col-sm-2 col-form-label">Nombre</label>
             <div class="col-sm-6">
                 <input type="text" th:field="*{nombre}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+                       th:errors="*{nombre}"></small>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
-            <div class="col-sm-6">
-                <input type="text" th:field="*{fechaDeNacimiento}" class="form-control"/>
+            <div class="col-sm-3">
+                <input type="date" th:field="*{fechaDeNacimiento}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaDeNacimiento')}"
+                       th:errors="*{fechaDeNacimiento}"></small>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Especie</label>
             <div class="col-sm-6">
-                <input type="text" th:field="*{especies}" class="form-control"/>
+                <select type="text" th:field="*{especies}" class="form-control">
+                    <option value="">-Seleccione la especie-</option>
+                    <option value="canino">Canino</option>
+                    <option value="felino">Felino</option>
+                    <option value="reptil">Reptil</option>
+                    <option value="roedor">Roedor</option>
+                </select>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('especies')}"
+                       th:errors="*{especies}"></small>
             </div>
         </div>
         <div class="form-group row">
