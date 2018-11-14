@@ -23,6 +23,7 @@
 
 <div class="container">
     <h1 th:text="${titulo}"></h1>
+    <p><a th:href="@{/pets/form}" class="btn btn-default btn-xs"></a></p>
     <table class="table">
         <thead>
         <tr>
@@ -30,6 +31,7 @@
             <th>Nombre:</th>
             <th>Fecha de Nacimiento:</th>
             <th>Especie:</th>
+            <th>Editar:</th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +40,7 @@
             <td th:text="${pet.nombre}"></td>
             <td th:text="${pet.fechaDeNacimiento}"></td>
             <td th:text="${pet.especies}"></td>
+            <td><a class="btn btn-primary btn-xs" th:href="@{/pets/form/} + ${pet.id}" th:text="'editar'"></a></td>
         </tr>
         </tbody>
     </table>
