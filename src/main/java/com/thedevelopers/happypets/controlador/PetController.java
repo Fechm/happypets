@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -53,6 +54,19 @@ public class PetController {
         }
         petService.save(pet);
         return "redirect:listar";
+    }
+
+    @RequestMapping(value = "/form/{id}")
+    public String Editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
+        Pet pet = null;
+        if (id > 0) {
+            pet = petService.buscarPetPorId(id);
+        } else {
+            return "redirect:listar";
+        }
+        model.put("pet", pet);
+        model.put("titulo", "Editar Mascota");
+        return "pform";
     }
 
 }

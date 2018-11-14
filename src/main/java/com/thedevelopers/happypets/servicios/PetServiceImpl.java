@@ -23,12 +23,16 @@ public class PetServiceImpl implements IPetService {
     @Transactional
     @Override
     public void save(Pet pet) {
-        em.persist(pet);
+        if (pet.getId() != null && pet.getId() > 0) {
+            em.merge(pet);
+        } else {
+            em.persist(pet);
+        }
     }
 
     @Override
     public Pet buscarPetPorId(Long id) {
-        return null;
+        return em.find(Pet.class, id);
     }
 
     @Override
