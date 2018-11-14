@@ -8,7 +8,7 @@ public interface IPetService  {
 
     List<Pet> buscarTodos();
 
-    void guardar(Pet pet);
+    void save(Pet pet);
 
     Pet buscarPetPorId(Long id);
 

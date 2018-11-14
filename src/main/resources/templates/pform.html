@@ -1,24 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}"></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
+</head>
 <body>
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID:</th>
-        <th>Nombre:</th>
-        <th>Fecha de Nacimiento:</th>
-        <th>Especie:</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each = "pet : ${pets}">
-
-        <td th:text="${pet.getId()}"></td>
-        <td th:text ="${pet.getNombre()}"></td>
-        <td th:text="${pet.getFechaDeNacimiento()}"></td>
-        <td th:text="${pet.getEspecies()}"></td>
-    </tr>
-    </tbody>
-</table>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">HappyPets</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-label="Toggle Navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about" th:href="@{/pets/listar}">Mascotas</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h1 th:text="${titulo}" class="text-secondary border border-top-0 border-left-0 border-right-0"></h1>
+    <form th:action="@{/pets/form}" th:object="${pet}" method="post">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-6">
+                <input type="text" th:field="*{nombre}" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
+            <div class="col-sm-6">
+                <input type="text" th:field="*{fechaDeNacimiento}" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Especie</label>
+            <div class="col-sm-6">
+                <input type="text" th:field="*{especies}" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <td><input type="submit" value="Registrar Mascota" class="btn btn-primary"/></td>
+        </div>
+        <input type="hidden" th:field="*{id}"/>
+    </form>
+</div>
 </body>
 </html>

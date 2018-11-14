@@ -25,6 +25,6 @@ public class UserController {
     public String index(Model model, User user){
         model.addAttribute("user",new User());
         model.addAttribute("users",userService.buscarTodos());
-        return "uform";
+        return "uForm";
     }
 }

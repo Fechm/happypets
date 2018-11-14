@@ -1,36 +1,39 @@
 package com.thedevelopers.happypets.servicios;
-
 import com.thedevelopers.happypets.model.Pet;
-import com.thedevelopers.happypets.repositorio.PetDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.*;
 
 @Service
 public class PetServiceImpl implements IPetService {
 
-    @Autowired
-    private PetDao petdao;
+    @PersistenceContext
+    private EntityManager em;
 
+    @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
     @Override
     public List<Pet> buscarTodos() {
-        return petdao.findAll();
+        return em.createQuery("from Pet").getResultList();
     }
 
+    @Transactional
     @Override
-    public void guardar(Pet pet) {
-        petdao.save(pet);
+    public void save(Pet pet) {
+        em.persist(pet);
     }
 
     @Override
     public Pet buscarPetPorId(Long id) {
-        return petdao.findById(id).orElse(null);
+        return null;
     }
 
     @Override
     public void borrarPetPorId(Long id) {
-        petdao.deleteById(id);
+
     }
 
     @Override
