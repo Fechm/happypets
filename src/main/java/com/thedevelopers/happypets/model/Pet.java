@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,21 +23,24 @@ public class Pet implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="propietario_email",referencedColumnName = "id_email",nullable = false,insertable = false,updatable = false)
     private Person duenio;
-    @NotNull
+    @NotEmpty
     @Column(name = "nombre_pet")
     private String nombre;
+
     @Email
     @Column(name = "adoptante_email")
     private String adoptante_email;
+
     @Email
     @Column(name = "propietario_email")
     private String propietario_email;
+
     @NotNull
     @Column(name = "fechaDeNacimiento")
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaDeNacimiento;
-    @NotNull
+    @NotEmpty
     @Column(name = "especies")
     private String especies;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
