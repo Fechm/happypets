@@ -1,5 +1,7 @@
 package com.thedevelopers.happypets.servicios;
 import com.thedevelopers.happypets.model.Pet;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,11 @@ public class PetServiceImpl implements IPetService {
     @Override
     public List<Pet> buscarTodos() {
         return em.createQuery("from Pet").getResultList();
+    }
+
+    @Override
+    public Page<Pet> buscarTodos(Pageable pageable) {
+        return null;
     }
 
     @Transactional
