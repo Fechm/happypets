@@ -2,6 +2,9 @@ package com.thedevelopers.happypets.controlador;
 import com.thedevelopers.happypets.model.Pet;
 import com.thedevelopers.happypets.servicios.IPetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,8 +22,9 @@ public class PetController {
     private IPetService petService;
 
     @GetMapping(value = "/listar")
-    public String listarMascotas(Model model, Pet pet) {
-        List<Pet> pets = petService.buscarTodos();
+    public String listarMascotas(@RequestParam(name = "page", defaultValue = "0") int page, Model model, Pet pet) {
+        Pageable pageRequest = PageRequest.of(page, 5);
+        Page<Pet> pets = petService.buscarTodos(pageRequest);
         model.addAttribute("titulo", "Listado de mascotas");
         model.addAttribute("pets", pets);
         return "plist";
