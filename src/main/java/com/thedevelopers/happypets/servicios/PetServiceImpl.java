@@ -1,5 +1,9 @@
 package com.thedevelopers.happypets.servicios;
 import com.thedevelopers.happypets.model.Pet;
+import com.thedevelopers.happypets.repositorio.PetDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +13,8 @@ import java.util.*;
 
 @Service
 public class PetServiceImpl implements IPetService {
+    @Autowired
+    private PetDao petdao;
 
     @PersistenceContext
     private EntityManager em;
@@ -18,6 +24,11 @@ public class PetServiceImpl implements IPetService {
     @Override
     public List<Pet> buscarTodos() {
         return em.createQuery("from Pet").getResultList();
+    }
+
+    @Override
+    public Page<Pet> buscarTodos(Pageable pageable) {
+        return petdao.findAll(pageable);
     }
 
     @Transactional
@@ -52,5 +63,5 @@ public class PetServiceImpl implements IPetService {
             }
         });
     }
-    
+
 }
