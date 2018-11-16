@@ -2,7 +2,6 @@ package com.thedevelopers.happypets.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -50,7 +49,7 @@ public class Pet implements Serializable {
 
     public Pet() {
     }
-    @JsonIgnore
+
     public Person getDuenio() {
         return duenio;
     }
@@ -58,7 +57,7 @@ public class Pet implements Serializable {
     public void setDuenio(Person duenio) {
         this.duenio = duenio;
     }
-    @JsonIgnore
+
     public List<Picture> getFotos() {
         return fotos;
     }

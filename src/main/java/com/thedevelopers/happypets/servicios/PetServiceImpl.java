@@ -1,7 +1,5 @@
 package com.thedevelopers.happypets.servicios;
 import com.thedevelopers.happypets.model.Pet;
-import com.thedevelopers.happypets.repositorio.PetDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,8 +11,6 @@ import java.util.*;
 
 @Service
 public class PetServiceImpl implements IPetService {
-    @Autowired
-    private PetDao petdao;
 
     @PersistenceContext
     private EntityManager em;
@@ -28,7 +24,7 @@ public class PetServiceImpl implements IPetService {
 
     @Override
     public Page<Pet> buscarTodos(Pageable pageable) {
-        return petdao.findAll(pageable);
+        return null;
     }
 
     @Transactional
@@ -41,17 +37,14 @@ public class PetServiceImpl implements IPetService {
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Pet buscarPetPorId(Long id) {
         return em.find(Pet.class, id);
     }
 
-    @Transactional
     @Override
     public void borrarPetPorId(Long id) {
-        Pet pet = buscarPetPorId(id);
-        em.remove(pet);
+
     }
 
     @Override
@@ -63,5 +56,7 @@ public class PetServiceImpl implements IPetService {
             }
         });
     }
+
+
 
 }
