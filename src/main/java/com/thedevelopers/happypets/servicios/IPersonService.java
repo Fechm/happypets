@@ -16,5 +16,9 @@ public interface IPersonService {
     void borrarPersonaPorId(String id);
 
     List<Pet> buscarTodasMascotas();
+    
+    void listarEnOrden(List<Person> persons);
+    
+    void save(Person person);
 
 }
