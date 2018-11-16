@@ -63,7 +63,7 @@ public class Person implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    @JsonIgnore
+
     public List<Pet> getMascotas() {
         return mascotas;
     }
