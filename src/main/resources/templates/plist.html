@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${titulo}"></title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
-</head>
+    <link rel="stylesheet" href="https://dl.dropbox.com/s/6eik2tm4mqhkiyo/css.css?dl=0"/></head>
+
+
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">HappyPets</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-label="Toggle Navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#about" th:href="@{/pets/listar}">Mascotas</a></li>
-        </ul>
-    </div>
-</nav>
+<div class="topnav">
+  <a href="#about" th:href="@{/}">Inicio</a>
+  <a class="active" href="/pets/listarO">Mascotas</a>
+  <a href="/persons/listarO">Personas</a>
+  <div class="topnav-right">
+    <a id="session" class="nav-linkk" href="/persons/iniciarSesion">Iniciar Sesión</a>
+    <a id="reg" class="nav-linkk" href="/persons/form">Registrarse</a>
+  </div>
+</div>
 
 
 <div class="container">
@@ -49,5 +47,18 @@
     </table>
     <td><a th:href="@{/pets/form}" type="button" class="btn btn-primary">Crear Mascota</a></td>
 </div>
+<script>
+if (typeof(Storage) !== "undefined") {
+
+    	if(sessionStorage.getItem("emailJ").length>0){
+    		document.getElementById("reg").innerHTML = "Cerrar Sesión";
+    		document.getElementById("reg").href="/cerrarSesion";
+    		document.getElementById("session").innerHTML = "Mi Cuenta";
+    		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
+    	}
+} else {
+    document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+</script>
 </body>
 </html>
