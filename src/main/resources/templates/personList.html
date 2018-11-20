@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}"></title>
+    <link rel="stylesheet" href="https://dl.dropbox.com/s/6eik2tm4mqhkiyo/css.css?dl=0"/></head>
+
+<body>
+
+<div class="topnav">
+  <a href="#about" th:href="@{/}">Inicio</a>
+  <a href="/pets/listarO">Mascotas</a>
+  <a class="active" href="/persons/listarO">Personas</a>
+  <div class="topnav-right">
+    <a id="session" class="nav-linkk" href="/persons/iniciarSesion">Iniciar Sesión</a>
+    <a id="reg" class="nav-linkk" href="/persons/form">Registrarse</a>
+  </div>
+</div>
+
+
+<div class="container">
+    <h1 th:text="${titulo}"></h1>
+    <p><a th:href="@{/persons/form}" class="btn btn-default btn-xs"></a></p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Email:</th>
+            <th>Nombre:</th>
+            <th>Apellido:</th>
+            <th>Run:</th>
+            <th>Editar:</th>
+            <th>Eliminar:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person : ${persons}">
+         	<td th:text="${person.email}"></td>
+            <td th:text="${person.primerNombre}"></td>
+            <td th:text="${person.apellido}"></td>
+            <td th:text="${person.run}"></td>
+            <td><a class="btn btn-primary btn-xs" th:href="@{/persons/form/} + ${person.email}" th:text="'editar'"></a></td>
+            <td><a a class="btn btn-danger btn-xs" th:href="@{/persons/delete/} + ${person.email}" th:text="'eliminar'"
+                   onclick="return confirm('Está seguro de eliminar esta persona?')"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <td><a th:href="@{/persons/form}" type="button" class="btn btn-primary">Crear Persona</a></td>
+</div>
+<div id="result"></div>
+
+<script>
+if (typeof(Storage) !== "undefined") {
+    // Store
+
+    	if(sessionStorage.getItem("emailJ").length>0){
+    		document.getElementById("reg").innerHTML = "Cerrar Sesión";
+    		document.getElementById("reg").href="/cerrarSesion";
+    		document.getElementById("session").innerHTML = "Mi Cuenta";
+    		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
+    	}
+} else {
+    document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+</script>
+
+</body>
+</html>

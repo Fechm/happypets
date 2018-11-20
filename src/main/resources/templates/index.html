@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${Titulo}"></title>
+    <link rel="stylesheet" href="https://dl.dropbox.com/s/6eik2tm4mqhkiyo/css.css?dl=0"/>
+</head>
+
+<body>
+
+<div class="topnav">
+  <a class="active" href="#about" th:href="@{/}">Inicio</a>
+  <a href="/pets/listarO">Mascotas</a>
+  <a href="/persons/listarO">Personas</a>
+  <div class="topnav-right">
+    <a id="session" class="nav-linkk" href="/persons/iniciarSesion">Iniciar Sesión</a>
+    <a id="reg" class="nav-linkk" href="/persons/form">Registrarse</a>
+  </div>
+</div>
+
+<div class="container">
+<div id="user"></div>
+<div id="email"></div>
+</div>
+
+
+<script>
+if (typeof(Storage) !== "undefined") {
+    // Store
+    	document.getElementById("user").innerHTML = sessionStorage.getItem("userJ");
+    	document.getElementById("email").innerHTML = sessionStorage.getItem("emailJ");
+    	if(sessionStorage.getItem("emailJ").length>0){
+    		document.getElementById("reg").innerHTML = "Cerrar Sesión";
+    		document.getElementById("reg").href="/cerrarSesion";
+    		document.getElementById("session").innerHTML = "Mi Cuenta";
+    		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
+    	}
+} else {
+    document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+</script>
+</body>
+</html>

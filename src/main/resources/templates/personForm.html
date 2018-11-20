@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}"></title>
+      <link rel="stylesheet" href="https://dl.dropbox.com/s/6eik2tm4mqhkiyo/css.css?dl=0"/>
+</head>
+
+
+<body>
+
+<div class="topnav">
+  <a href="#about" th:href="@{/}">Inicio</a>
+  <a href="/pets/listarO">Mascotas</a>
+  <a  href="/persons/listarO">Personas</a>
+  <div class="topnav-right">
+    <a id="session" class="nav-linkk" href="/persons/iniciarSesion">Iniciar Sesión</a>
+    <a class="active" id="reg"  href="/persons/form">Registrarse</a>
+  </div>
+</div>
+<div class="container">
+    <h1 th:text="${titulo}" class="text-secondary border border-top-0 border-left-0 border-right-0"></h1>
+    <form th:action="@{/persons/form}" th:object="${person}" method="post">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-6">
+                <input type="text" th:field="*{email}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
+                       th:errors="*{email}"></small>
+            </div>
+        </div>      
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-6">
+                <input type="text" th:field="*{primerNombre}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('primerNombre')}"
+                       th:errors="*{primerNombre}"></small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Apellido</label>
+            <div class="col-sm-3">
+                <input type="text" th:field="*{apellido}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
+                       th:errors="*{apellido}"></small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Run</label>
+            <div class="col-sm-3">
+                <input type="text" th:field="*{run}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('run')}"
+                       th:errors="*{run}"></small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Calle</label>
+            <div class="col-sm-3">
+                <input type="text" th:field="*{calle}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('calle')}"
+                       th:errors="*{calle}"></small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Numero</label>
+            <div class="col-sm-3">
+                <input type="text" th:field="*{nroCalle}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('nroCalle')}"
+                       th:errors="*{nroCalle}"></small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Ciudad</label>
+            <div class="col-sm-3">
+                <input type="text" th:field="*{ciudad}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('ciudad')}"
+                       th:errors="*{ciudad}"></small>
+            </div>
+        </div>                        
+        <div class="form-group row">
+            <td><input type="submit" value="Registrar Persona" class="btn btn-primary"/></td>
+        </div>
+    </form>
+</div>
+<script>
+if (typeof(Storage) !== "undefined") {
+    // Store
+    	if(sessionStorage.getItem("emailJ").length>0){
+    		document.getElementById("reg").innerHTML = "Cerrar Sesión";
+    		document.getElementById("reg").href="/cerrarSesion";
+    		document.getElementById("session").innerHTML = "Mi Cuenta";
+    		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
+    	}
+} else {
+    document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+</script>
+</body>
+</html>
