@@ -18,11 +18,14 @@ public class Person implements Serializable {
     @Id
     @Column(name = "id_email",nullable = false,unique = true,length = 50)
     private String email;
-
+    /*
     @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "id_email",referencedColumnName = "user_email")
     private User user;
-
+     */
+    @Column(name = "contrasena")
+    private String contrasena;
+    
     @Column(name = "primer_nombre")
     private String primerNombre;
 
@@ -63,7 +66,12 @@ public class Person implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    public String getContrasena() {
+        return contrasena;
+    }
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
     public List<Pet> getMascotas() {
         return mascotas;
     }

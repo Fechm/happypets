@@ -5,13 +5,12 @@
     <title th:text="${titulo}"></title>
     <link rel="stylesheet" href="https://dl.dropbox.com/s/6eik2tm4mqhkiyo/css.css?dl=0"/></head>
 
-
 <body>
 
 <div class="topnav">
   <a href="#about" th:href="@{/}">Inicio</a>
-  <a class="active" href="/pets/listarO">Mascotas</a>
-  <a href="/persons/listarO">Personas</a>
+  <a href="/pets/listarO">Mascotas</a>
+  <a class="active" href="/persons/listarO">Personas</a>
   <div class="topnav-right">
     <a id="session" class="nav-linkk" href="/persons/iniciarSesion">Iniciar Sesión</a>
     <a id="reg" class="nav-linkk" href="/persons/form">Registrarse</a>
@@ -21,34 +20,37 @@
 
 <div class="container">
     <h1 th:text="${titulo}"></h1>
-    <p><a th:href="@{/pets/form}" class="btn btn-default btn-xs"></a></p>
+    <p><a th:href="@{/persons/form}" class="btn btn-default btn-xs"></a></p>
     <table class="table">
         <thead>
         <tr>
-            <th>ID:</th>
+            <th>Email:</th>
             <th>Nombre:</th>
-            <th>Fecha de Nacimiento:</th>
-            <th>Especie:</th>
+            <th>Apellido:</th>
+            <th>Run:</th>
             <th>Editar:</th>
             <th>Eliminar:</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="pet : ${pets}">
-            <td th:text="${pet.id}"></td>
-            <td th:text="${pet.nombre}"></td>
-            <td th:text="${pet.fechaDeNacimiento}"></td>
-            <td th:text="${pet.especies}"></td>
-            <td><a class="btn btn-primary btn-xs" th:href="@{/pets/form/} + ${pet.id}" th:text="'editar'"></a></td>
-            <td><a a class="btn btn-danger btn-xs" th:href="@{/pets/delete/} + ${pet.id}" th:text="'eliminar'"
-                   onclick="return confirm('Está seguro de eliminar esta mascota?')"></a></td>
+        <tr th:each="person : ${persons}">
+         	<td th:text="${person.email}"></td>
+            <td th:text="${person.primerNombre}"></td>
+            <td th:text="${person.apellido}"></td>
+            <td th:text="${person.run}"></td>
+            <td><a class="btn btn-primary btn-xs" th:href="@{/persons/form/} + ${person.email}" th:text="'editar'"></a></td>
+            <td><a a class="btn btn-danger btn-xs" th:href="@{/persons/delete/} + ${person.email}" th:text="'eliminar'"
+                   onclick="return confirm('Está seguro de eliminar esta persona?')"></a></td>
         </tr>
         </tbody>
     </table>
-    <td><a th:href="@{/pets/form}" type="button" class="btn btn-primary">Crear Mascota</a></td>
+    <td><a th:href="@{/persons/form}" type="button" class="btn btn-primary">Crear Persona</a></td>
 </div>
+<div id="result"></div>
+
 <script>
 if (typeof(Storage) !== "undefined") {
+    // Store
 
     	if(sessionStorage.getItem("emailJ").length>0){
     		document.getElementById("reg").innerHTML = "Cerrar Sesión";
@@ -60,5 +62,6 @@ if (typeof(Storage) !== "undefined") {
     document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
 }
 </script>
+
 </body>
 </html>

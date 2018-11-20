@@ -38,6 +38,42 @@ public class PersonController {
         model.addAttribute("persons",temp);
         return "personList";
     }    
+
+    @GetMapping(value = "/iniciarSesion")
+    public String iniciarSesion(Map<String, Object> model){
+        Person person = new Person();
+        model.put("person", person);
+        model.put("titulo", "Login");
+        return "personLogin";
+    }   
+    
+    
+    @RequestMapping(value = "/iniciarSesion", method = RequestMethod.POST)
+    public String comparar(@Valid Person person, BindingResult result, Model model, SessionStatus status) {
+        if (result.hasErrors()) {
+            model.addAttribute("titulo", "Formulario de personas");
+            return "personLogin";
+        }
+        Person login = personService.buscarPersonaPorId(person.getEmail());
+        if (login == null) { 
+        	model.addAttribute("titulo", "Iniciar Sesión");
+        	return "personLogin";
+        }else if(login.getEmail().equals(person.getEmail())){
+        	if(login.getContrasena().equals(person.getContrasena())) {
+        		model.addAttribute("bienvenido", "Bienvenido, ");
+        		model.addAttribute("user", login.getPrimerNombre());
+        		model.addAttribute("email", login.getEmail());
+        		
+        		return "login";
+        	}else {
+        		model.addAttribute("titulo", "Iniciar Sesión");
+        		return "personLogin";
+        	}
+        }else {
+        	return "personLogin";
+        }
+    }
+    
     @RequestMapping(value = "/form")
     public String crear(Map<String, Object> model) {
         Person person = new Person();
@@ -69,4 +105,15 @@ public class PersonController {
         model.put("titulo", "Editar Persona");
         return "personForm";
     }
+    @RequestMapping(value = "/delete/{email}")
+    public String eliminar(@PathVariable(value = "email") String email, Map<String, Object> model) {
+        Person person = null;
+        if (email.length() > 0) {
+            personService.borrarPersonaPorId(email);
+        } else {
+            return "redirect:/pets/listarO";
+        }
+        return "redirect:/persons/listarO";
+    }
+
 }

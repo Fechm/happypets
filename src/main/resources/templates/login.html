@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+
+
+<div class="container">
+<H3 hidden="hidden" id="user" th:text="${user}"></H3>
+<H3 hidden="hidden" id="email" th:text="${email}"></H3>
+</div>
+
+<script>
+if (typeof(Storage) !== "undefined") {
+    // Store
+    	sessionStorage.setItem("userJ", document.getElementById("user").textContent);
+    	sessionStorage.setItem("emailJ", document.getElementById("email").textContent);
+} else {
+    document.getElementById("userJ").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+window.location.replace("http://localhost:8080");
+</script>
+</body>
+</html>

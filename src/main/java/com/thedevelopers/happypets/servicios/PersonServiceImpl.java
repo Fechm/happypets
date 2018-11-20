@@ -52,8 +52,10 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public void borrarPersonaPorId(String id) {
         Person p = buscarPersonaPorId(id);
+        System.out.println("del_method");
         if(p.getEmail().equals(id)){
             personDao.delete(p);
+            System.out.println("deleted");
         }
     }
     @Override
