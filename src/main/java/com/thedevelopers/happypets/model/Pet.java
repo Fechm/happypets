@@ -27,11 +27,11 @@ public class Pet implements Serializable {
     private String nombre;
 
     @Email
-    @Column(name = "adoptante_email")
+    @Column(name = "adoptante_email",length = 50)
     private String adoptante_email;
 
     @Email
-    @Column(name = "propietario_email")
+    @Column(name = "propietario_email",length = 50)
     private String propietario_email;
 
     @NotNull

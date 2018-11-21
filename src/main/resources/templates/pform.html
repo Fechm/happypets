@@ -5,9 +5,11 @@
     <title th:text="${titulo}"></title>
     <link rel="stylesheet" href="https://dl.dropbox.com/s/6eik2tm4mqhkiyo/css.css?dl=0"/></head>
 
+
 <body>
 
 <div class="topnav">
+  <a style="padding: 1px;"  href="http://localhost:8080"><img src="https://preview.ibb.co/kC2Hpq/logotrans.png" alt="logotrans"height="52" width="327" border="0"></a> 
   <a href="#about" th:href="@{/}">Inicio</a>
   <a class="active" href="/pets/listarO">Mascotas</a>
   <a href="/persons/listarO">Personas</a>
@@ -18,11 +20,11 @@
 </div>
 <div class="container">
     <h1 th:text="${titulo}" class="text-secondary border border-top-0 border-left-0 border-right-0"></h1>
-    <form th:action="@{/pets/form}" th:object="${pet}" method="post">
+    <form th:action="@{/pets/form}" th:object="${pet}" method="post" action="/upload/image">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Nombre</label>
             <div class="col-sm-6">
-                <input type="text" th:field="*{nombre}" class="form-control"/>
+                <input required type="text" th:field="*{nombre}" class="form-control"/>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
                        th:errors="*{nombre}"></small>
             </div>
@@ -30,15 +32,23 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
             <div class="col-sm-3">
-                <input type="date" th:field="*{fechaDeNacimiento}" class="form-control"/>
+                <input required type="date" th:field="*{fechaDeNacimiento}" class="form-control"/>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaDeNacimiento')}"
                        th:errors="*{fechaDeNacimiento}"></small>
             </div>
         </div>
+		<div  hidden class="form-group row">
+            <div class="col-sm-3">
+                <input required id="email_set" type="text" th:field="*{propietario_email}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('propietario_email')}"
+                       th:errors="*{propietario_email}"></small>
+            </div>
+        </div>
+        
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Especie</label>
             <div class="col-sm-6">
-                <select type="text" th:field="*{especies}" class="form-control">
+                <select required type="text" th:field="*{especies}" class="form-control">
                     <option value="">-Seleccione la especie-</option>
                     <option value="canino">Canino</option>
                     <option value="felino">Felino</option>
@@ -49,6 +59,15 @@
                        th:errors="*{especies}"></small>
             </div>
         </div>
+        
+        <div class="form-group row">
+	        <label class="col-sm-2 col-form-label" for="files">Seleccione las imágenes </label>
+				<div class="col-sm-3">
+					<input required id="files" type="file" multiple/>
+				</div>
+			<output id="result" />
+        </div>
+        
         <div class="form-group row">
             <td><input type="submit" value="Registrar Mascota" class="btn btn-primary"/></td>
         </div>
@@ -56,6 +75,8 @@
     </form>
 </div>
 <script>
+
+
 if (typeof(Storage) !== "undefined") {
     // Store
 
@@ -64,10 +85,49 @@ if (typeof(Storage) !== "undefined") {
     		document.getElementById("reg").href="/cerrarSesion";
     		document.getElementById("session").innerHTML = "Mi Cuenta";
     		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
+    		document.getElementById("email_set").value = sessionStorage.getItem("emailJ");
     	}
 } else {
     document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
 }
+
+
+
+
+window.onload = function(){
+    //Check File API support
+    if(window.File && window.FileList && window.FileReader)
+    {
+        var filesInput = document.getElementById("files");
+        filesInput.addEventListener("change", function(event){
+            var files = event.target.files; //FileList object
+            var output = document.getElementById("result");
+            for(var i = 0; i< files.length; i++)
+            {
+                var file = files[i];
+                //Only pics
+                if(!file.type.match('image'))
+                    continue;
+                var picReader = new FileReader();
+                picReader.addEventListener("load",function(event){
+                    var picFile = event.target;
+                    var div = document.createElement("div");
+                    div.className = "column";
+                    div.innerHTML = "<img height='60' width='60' class='thumbnail' src='"+ picFile.result + "'" +
+                    "title='" + picFile.name + "'/>";
+                    output.insertBefore(div,null);
+                });
+                //Read the image
+                picReader.readAsDataURL(file);
+            }
+        });
+    }
+    else
+    {
+        console.log("Your browser does not support File API");
+    }
+}
+
 </script>
 </body>
 </html>

@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     @Email
     @Id
-    @Column(name = "user_email",nullable = false,unique = true)
+    @Column(name = "user_email",nullable = false,unique = true,length = 50)
     private String email;
     @Column(name = "password",nullable = false)
     private String password;

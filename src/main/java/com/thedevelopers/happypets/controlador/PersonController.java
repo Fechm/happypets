@@ -43,7 +43,7 @@ public class PersonController {
     public String iniciarSesion(Map<String, Object> model){
         Person person = new Person();
         model.put("person", person);
-        model.put("titulo", "Login");
+        model.put("titulo", "Iniciar Sesión");
         return "personLogin";
     }   
     
@@ -111,7 +111,7 @@ public class PersonController {
         if (email.length() > 0) {
             personService.borrarPersonaPorId(email);
         } else {
-            return "redirect:/pets/listarO";
+            return "redirect:/persons/listarO";
         }
         return "redirect:/persons/listarO";
     }
