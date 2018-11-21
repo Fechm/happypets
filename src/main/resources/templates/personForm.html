@@ -25,23 +25,32 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-6">
-                <input type="text" th:field="*{email}" class="form-control"/>
+                <input required type="text" th:field="*{email}" class="form-control"/>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
                        th:errors="*{email}"></small>
             </div>
-        </div>      
+        </div>  
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Contraseña</label>
+            <div class="col-sm-6">
+                <input required type="password" th:field="*{contrasena}" class="form-control"/>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('contrasena')}"
+                       th:errors="*{contrasnea}"></small>
+            </div>
+        </div>               
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Nombre</label>
             <div class="col-sm-6">
-                <input type="text" th:field="*{primerNombre}" class="form-control"/>
+                <input required type="text" th:field="*{primerNombre}" class="form-control"/>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('primerNombre')}"
                        th:errors="*{primerNombre}"></small>
             </div>
         </div>
+     
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Apellido</label>
             <div class="col-sm-3">
-                <input type="text" th:field="*{apellido}" class="form-control"/>
+                <input required type="text" th:field="*{apellido}" class="form-control"/>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
                        th:errors="*{apellido}"></small>
             </div>
@@ -49,7 +58,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Run</label>
             <div class="col-sm-3">
-                <input type="text" th:field="*{run}" class="form-control"/>
+                <input required type="text" th:field="*{run}" class="form-control"/>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('run')}"
                        th:errors="*{run}"></small>
             </div>
@@ -57,7 +66,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Calle</label>
             <div class="col-sm-3">
-                <input type="text" th:field="*{calle}" class="form-control"/>
+                <input required type="text" th:field="*{calle}" class="form-control"/>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('calle')}"
                        th:errors="*{calle}"></small>
             </div>
@@ -65,7 +74,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Numero</label>
             <div class="col-sm-3">
-                <input type="text" th:field="*{nroCalle}" class="form-control"/>
+                <input required type="text" th:field="*{nroCalle}" class="form-control"/>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('nroCalle')}"
                        th:errors="*{nroCalle}"></small>
             </div>
@@ -73,7 +82,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Ciudad</label>
             <div class="col-sm-3">
-                <input type="text" th:field="*{ciudad}" class="form-control"/>
+                <input required type="text" th:field="*{ciudad}" class="form-control"/>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('ciudad')}"
                        th:errors="*{ciudad}"></small>
             </div>
