@@ -55,7 +55,7 @@ public class PetController {
         }
         petService.save(pet);
         status.setComplete();
-        return "redirect:/pets/listar";
+        return "redirect:/pets/listarO";
     }
 
     @RequestMapping(value = "/form/{id}")
@@ -64,7 +64,7 @@ public class PetController {
         if (id > 0) {
             pet = petService.buscarPetPorId(id);
         } else {
-            return "redirect:/pets/listar";
+            return "redirect:/pets/listarO";
         }
         model.put("pet", pet);
         model.put("titulo", "Editar Mascota");
@@ -77,7 +77,7 @@ public class PetController {
         if (id > 0) {
             petService.borrarPetPorId(id);
         }
-        return "redirect:/pets/listar";
+        return "redirect:/pets/listarO";
     }
 
 }

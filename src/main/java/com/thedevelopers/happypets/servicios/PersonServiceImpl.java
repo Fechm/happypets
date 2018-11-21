@@ -39,6 +39,7 @@ public class PersonServiceImpl implements IPersonService {
         }
     }    
     
+    
     @Override
     public void registrar(Person person) {
         personDao.save(person);
