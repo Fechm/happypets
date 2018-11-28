@@ -1,16 +1,22 @@
 package com.thedevelopers.happypets.controlador;
 import com.thedevelopers.happypets.model.Pet;
+import com.thedevelopers.happypets.model.Picture;
 import com.thedevelopers.happypets.servicios.IPetService;
+import com.thedevelopers.happypets.servicios.IPictureService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,13 +26,13 @@ import java.util.Map;
 public class PetController {
     @Autowired
     private IPetService petService;
+    private IPictureService pictureService;
 
     @GetMapping(value = "/listar")
-    public String listarMascotas(@RequestParam(name = "page", defaultValue = "0") int page, Model model, Pet pet) {
-        Pageable pageRequest = PageRequest.of(page, 5);
-        Page<Pet> pets = petService.buscarTodos(pageRequest);
+    public String listarMascotas(Model model) {
         model.addAttribute("titulo", "Listado de mascotas");
-        model.addAttribute("pets", pets);
+        List<Pet> temp = petService.buscarTodos();
+        model.addAttribute("pets", temp);
         return "plist";
     }
 
@@ -48,10 +54,29 @@ public class PetController {
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String guardar(@Valid Pet pet, BindingResult result, Model model, SessionStatus status) {
+    public String guardar(@Valid Pet pet, BindingResult result, Model model, @RequestParam("file") MultipartFile foto, SessionStatus status) {
         if (result.hasErrors()) {
             model.addAttribute("titulo", "Formulario de mascota");
             return "pform";
+        }
+        if (!foto.isEmpty()) {
+            Path directorioRecursos = Paths.get("src//main//resources//static//uploads");
+            String rootPath = directorioRecursos.toFile().getAbsolutePath();
+            try {
+
+                byte[] bytes = foto.getBytes();
+                Path rutaCompleta = Paths.get(rootPath + "//" + foto.getOriginalFilename());
+                Files.write(rutaCompleta, bytes);
+                List<Picture> pics = new ArrayList<Picture>();
+                Picture p = new Picture();
+                p.setIdpet(pet.getId());
+                p.setPicture(foto.getOriginalFilename());
+                pics.add(p);
+                pet.setFotos(pics);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
         petService.save(pet);
         status.setComplete();
@@ -73,9 +98,9 @@ public class PetController {
 
     @RequestMapping(value = "/delete/{id}")
     public String eliminar(@PathVariable(value = "id") Long id) {
-        Pet pet = null;
         if (id > 0) {
             petService.borrarPetPorId(id);
+            pictureService.borrarPorId(id);
         }
         return "redirect:/pets/listarO";
     }

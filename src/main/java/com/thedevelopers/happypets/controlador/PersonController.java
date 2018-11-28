@@ -25,7 +25,7 @@ public class PersonController {
     @Autowired
     private IPersonService personService;
 
-    @GetMapping(value = "/listar",produces = {"application/json"})
+    @GetMapping(value = "/listar")
     public @ResponseBody List<Person> listar(){
         List<Person> persons = personService.buscarTodos();
         return persons;

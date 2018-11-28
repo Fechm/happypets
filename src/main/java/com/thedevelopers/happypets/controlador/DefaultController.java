@@ -1,9 +1,8 @@
 package com.thedevelopers.happypets.controlador;
 
-import com.thedevelopers.happypets.model.User;
-
 import java.util.Map;
 
+import com.thedevelopers.happypets.model.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/")
 public class DefaultController {
     @GetMapping(value = "/")
-    public String index(Model model, User user){
+    public String index(Model model, Person person) {
         return "index";
     }
     @GetMapping(value = "/cerrarSesion")
