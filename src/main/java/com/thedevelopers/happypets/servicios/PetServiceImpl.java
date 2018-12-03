@@ -47,7 +47,7 @@ public class PetServiceImpl implements IPetService {
     public Pet buscarPetPorId(Long id) {
         return em.find(Pet.class, id);
     }
-
+    
     @Override
     public void borrarPetPorId(Long id) {
         Pet p = buscarPetPorId(id);

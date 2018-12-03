@@ -22,6 +22,7 @@
 <div class="container">
 <div id="user"></div>
 <div id="email"></div>
+<div id="fnac"></div>
 </div>
 
 
@@ -30,11 +31,13 @@ if (typeof(Storage) !== "undefined") {
     // Store
     	document.getElementById("user").innerHTML = sessionStorage.getItem("userJ");
     	document.getElementById("email").innerHTML = sessionStorage.getItem("emailJ");
+    	document.getElementById("fnac").innerHTML = sessionStorage.getItem("fnacJ");
     	if(sessionStorage.getItem("emailJ").length>0){
     		document.getElementById("reg").innerHTML = "Cerrar Sesión";
     		document.getElementById("reg").href="/cerrarSesion";
     		document.getElementById("session").innerHTML = "Mi Cuenta";
     		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
+    		document.getElementById("mypets").href="/pets/myPets/".concat(sessionStorage.getItem("emailJ"));
     	}else{
     		document.getElementById("mypets").style.display="none";
     	}

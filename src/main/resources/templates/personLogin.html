@@ -52,6 +52,8 @@ if (typeof(Storage) !== "undefined") {
     		document.getElementById("reg").href="/cerrarSesion";
     		document.getElementById("session").innerHTML = "Mi Cuenta";
     		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
+    		document.getElementById("mypets").href="/pets/myPets/".concat(sessionStorage.getItem("emailJ"));
+
     	}else{
     		document.getElementById("mypets").style.display="none";
     	}

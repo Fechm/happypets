@@ -40,7 +40,13 @@ public class PetController {
     public String listarMascotasOrdenadasPorNombre(Model model, Pet pet){
         model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
         List<Pet> temp = petService.buscarTodos();
+
         petService.listarEnOrden(temp);
+        for(int i=0; i<temp.size();i++) {
+	        if(temp.get(i).getAdoptante_email().length()>0) {
+	        	temp.remove(i);
+	        }
+        }
         model.addAttribute("pets",temp);
         return "plist";
     }
@@ -100,9 +106,30 @@ public class PetController {
     public String eliminar(@PathVariable(value = "id") Long id) {
         if (id > 0) {
             petService.borrarPetPorId(id);
-            pictureService.borrarPorId(id);
+            //pictureService.borrarPorId(id);
         }
-        return "redirect:/pets/listarO";
+        return "redirect:/pets/myPets";
     }
-
+    
+    @RequestMapping(value = "/myPets/{email}")
+    public String BuscarPorPropietario(Model model, Pet pet, @PathVariable(value = "email") String email) {
+        model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
+        List<Pet> temp = petService.buscarTodos();
+        List<Pet> aux = new ArrayList<>();
+        
+        for(int k=0; k <temp.size();k++) {
+	        if(temp.get(k).getPropietario_email().equals(email)) {
+	        	aux.add(temp.get(k));	        	
+	        }
+        }
+        temp.clear();
+        model.addAttribute("pets",aux);
+        return "myplist";
+    }
+    @RequestMapping(value = "/myPets")
+    public String MyPets(Model model) {
+    	model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
+        return "myplist";
+    }
+    
 }

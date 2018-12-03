@@ -63,6 +63,7 @@ public class PersonController {
         		model.addAttribute("bienvenido", "Bienvenido, ");
         		model.addAttribute("user", login.getPrimerNombre());
         		model.addAttribute("email", login.getEmail());
+        		model.addAttribute("fnac", login.getFechaDeNacimiento());
         		
         		return "login";
         	}else {
