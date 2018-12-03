@@ -12,8 +12,8 @@
   <a style="padding: 1px;"  href="http://localhost:8080"><img src="https://preview.ibb.co/kC2Hpq/logotrans.png" alt="logotrans"height="52" width="327" border="0"></a> 
   <a href="#about" th:href="@{/}">Inicio</a>
   <a class="active" href="/pets/listarO">Mascotas</a>
-  <a href="/persons/listarO">Personas</a>
-  <div class="topnav-right">
+  <a id="mypets" href="/pets/myPets">Mis Mascotas</a>
+    <div class="topnav-right">
     <a id="session" class="nav-linkk" href="/persons/iniciarSesion">Iniciar Sesión</a>
     <a id="reg" class="nav-linkk" href="/persons/form">Registrarse</a>
   </div>
@@ -26,27 +26,23 @@
     <table class="table">
         <thead>
         <tr>
-            <th>ID:</th>
+            <th>Imagen:</th>
             <th>Nombre:</th>
             <th>Fecha de Nacimiento:</th>
             <th>Especie:</th>
-            <th>Editar:</th>
-            <th>Eliminar:</th>
+            <th>Adoptar:</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="pet : ${pets}">
-            <td th:text="${pet.id}"></td>
+            <td ><img style="width:50px;height:50px;" src="https://i.ytimg.com/vi/wBU1llWxq7U/hqdefault.jpg" alt="Italian Trulli"></td>
             <td th:text="${pet.nombre}"></td>
             <td th:text="${pet.fechaDeNacimiento}"></td>
             <td th:text="${pet.especies}"></td>
-            <td><a class="btn btn-primary btn-xs" th:href="@{/pets/form/} + ${pet.id}" th:text="'editar'"></a></td>
-            <td><a a class="btn btn-danger btn-xs" th:href="@{/pets/delete/} + ${pet.id}" th:text="'eliminar'"
-                   onclick="return confirm('Está seguro de eliminar esta mascota?')"></a></td>
+            <td><a name= "adoptar" class="btn btn-primary btn-xs" th:href="@{/pets/form/} + ${pet.id}" th:text="'Adoptar'"></a></td>
         </tr>
         </tbody>
     </table>
-    <td><a th:href="@{/pets/form}" type="button" class="btn btn-primary">Crear Mascota</a></td>
 </div>
 <script>
 if (typeof(Storage) !== "undefined") {
@@ -56,10 +52,32 @@ if (typeof(Storage) !== "undefined") {
     		document.getElementById("reg").href="/cerrarSesion";
     		document.getElementById("session").innerHTML = "Mi Cuenta";
     		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
+    		document.getElementById("mypets").href="/pets/myPets/".concat(sessionStorage.getItem("emailJ"));
+
+    		
+    		if(!esMayorDeEdad()){
+    			for (i = 0; i < document.getElementsByName("adoptar").length; i++){
+	    			document.getElementsByName("adoptar")[i].onclick = menorDeEdad;	
+	    			document.getElementsByName("adoptar")[i].href="/pets/listarO"; 
+    			}
+    		}
+    	}else{
+    		document.getElementById("mypets").style.display="none";
     	}
 } else {
     document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
 }
+function esMayorDeEdad() {
+    var d = new Date();
+    var n = d.getFullYear();
+    if(n-sessionStorage.getItem("fnacJ").split("-")[0]>18){
+    	return true;
+    }
+}
+function menorDeEdad() {
+    alert("Lo sentimos! Debido a que eres menor de edad, no puedes adoptar mascotas.");
+}
+
 </script>
 </body>
 </html>
