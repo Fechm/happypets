@@ -2,7 +2,6 @@ package com.thedevelopers.happypets.controlador;
 import com.thedevelopers.happypets.model.Pet;
 import com.thedevelopers.happypets.model.Picture;
 import com.thedevelopers.happypets.servicios.IPetService;
-import com.thedevelopers.happypets.servicios.IPictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +25,6 @@ import java.util.Map;
 public class PetController {
     @Autowired
     private IPetService petService;
-    private IPictureService pictureService;
 
     @GetMapping(value = "/listar")
     public String listarMascotas(Model model) {
@@ -106,7 +104,6 @@ public class PetController {
     public String eliminar(@PathVariable(value = "id") Long id) {
         if (id > 0) {
             petService.borrarPetPorId(id);
-            //pictureService.borrarPorId(id);
         }
         return "redirect:/pets/myPets";
     }
