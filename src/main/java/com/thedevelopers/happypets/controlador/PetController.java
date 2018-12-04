@@ -38,10 +38,9 @@ public class PetController {
     public String listarMascotasOrdenadasPorNombre(Model model, Pet pet){
         model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
         List<Pet> temp = petService.buscarTodos();
-
         petService.listarEnOrden(temp);
         for(int i=0; i<temp.size();i++) {
-	        if(temp.get(i).getAdoptante_email().length()>0) {
+	        if(temp.get(i).getAdoptante_email()!=null) {
 	        	temp.remove(i);
 	        }
         }
@@ -64,7 +63,7 @@ public class PetController {
             return "pform";
         }
         if (!foto.isEmpty()) {
-            Path directorioRecursos = Paths.get("src//main//resources//static//uploads");
+            Path directorioRecursos = Paths.get("src//main//resources//public//images");
             String rootPath = directorioRecursos.toFile().getAbsolutePath();
             try {
 
@@ -114,6 +113,7 @@ public class PetController {
         List<Pet> temp = petService.buscarTodos();
         List<Pet> aux = new ArrayList<>();
         
+        
         for(int k=0; k <temp.size();k++) {
 	        if(temp.get(k).getPropietario_email().equals(email)) {
 	        	aux.add(temp.get(k));	        	
@@ -125,6 +125,7 @@ public class PetController {
     }
     @RequestMapping(value = "/myPets")
     public String MyPets(Model model) {
+    	
     	model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
         return "myplist";
     }

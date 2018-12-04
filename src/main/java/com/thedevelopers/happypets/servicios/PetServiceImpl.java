@@ -53,8 +53,9 @@ public class PetServiceImpl implements IPetService {
         pet.setFotos(buscarFotosPorId(id));
         return pet;
     }
-
-    private List<Picture> buscarFotosPorId(Long id){
+    
+    @Override
+    public List<Picture> buscarFotosPorId(Long id){
         String query = "from picture where id_pet = id";
         return em.createQuery(query).getResultList();
     }
