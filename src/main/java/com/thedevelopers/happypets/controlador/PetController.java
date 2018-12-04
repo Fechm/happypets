@@ -2,7 +2,6 @@ package com.thedevelopers.happypets.controlador;
 import com.thedevelopers.happypets.model.Pet;
 import com.thedevelopers.happypets.model.Picture;
 import com.thedevelopers.happypets.servicios.IPetService;
-import com.thedevelopers.happypets.servicios.IPictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +25,6 @@ import java.util.Map;
 public class PetController {
     @Autowired
     private IPetService petService;
-    private IPictureService pictureService;
 
     @GetMapping(value = "/listar")
     public String listarMascotas(Model model) {
@@ -40,10 +38,9 @@ public class PetController {
     public String listarMascotasOrdenadasPorNombre(Model model, Pet pet){
         model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
         List<Pet> temp = petService.buscarTodos();
-
         petService.listarEnOrden(temp);
         for(int i=0; i<temp.size();i++) {
-	        if(temp.get(i).getAdoptante_email().length()>0) {
+	        if(temp.get(i).getAdoptante_email()!=null) {
 	        	temp.remove(i);
 	        }
         }
@@ -66,7 +63,7 @@ public class PetController {
             return "pform";
         }
         if (!foto.isEmpty()) {
-            Path directorioRecursos = Paths.get("src//main//resources//static//uploads");
+            Path directorioRecursos = Paths.get("src//main//resources//public//images");
             String rootPath = directorioRecursos.toFile().getAbsolutePath();
             try {
 
@@ -106,7 +103,6 @@ public class PetController {
     public String eliminar(@PathVariable(value = "id") Long id) {
         if (id > 0) {
             petService.borrarPetPorId(id);
-            //pictureService.borrarPorId(id);
         }
         return "redirect:/pets/myPets";
     }
@@ -116,6 +112,7 @@ public class PetController {
         model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
         List<Pet> temp = petService.buscarTodos();
         List<Pet> aux = new ArrayList<>();
+        
         
         for(int k=0; k <temp.size();k++) {
 	        if(temp.get(k).getPropietario_email().equals(email)) {
@@ -128,6 +125,7 @@ public class PetController {
     }
     @RequestMapping(value = "/myPets")
     public String MyPets(Model model) {
+    	
     	model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
         return "myplist";
     }
