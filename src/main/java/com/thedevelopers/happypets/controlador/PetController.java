@@ -47,6 +47,20 @@ public class PetController {
         model.addAttribute("pets",temp);
         return "plist";
     }
+    
+    @GetMapping(value = "/recentAdopt")
+    public String listarMascotasRecientementeAdoptadas(Model model, Pet pet){
+        model.addAttribute("titulo", "Listado de mascotas adoptadas recientemente");
+        List<Pet> temp = petService.buscarTodos();
+        List<Pet> temp2 = new ArrayList<>();
+        for(int i=0; i<temp.size();i++) {
+	        if(temp.get(i).getAdoptante_email()!=null) {
+	        	temp2.add(temp.get(i));
+	        }
+        }
+        model.addAttribute("pets",temp2);
+        return "recentAdoptplist";
+    }
 
     @RequestMapping(value = "/form")
     public String crear(Map<String, Object> model) {
@@ -108,7 +122,7 @@ public class PetController {
     }
     
     @RequestMapping(value = "/myPets/{email}")
-    public String BuscarPorPropietario(Model model, Pet pet, @PathVariable(value = "email") String email) {
+    public String BuscarPorProp(Model model, Pet pet, @PathVariable(value = "email") String email) {
         model.addAttribute("titulo", "Listado de mascotas ordenadas por nombre");
         List<Pet> temp = petService.buscarTodos();
         List<Pet> aux = new ArrayList<>();

@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
     <title th:text="${Titulo}"></title>
     <link rel="stylesheet" href="https://dl.dropbox.com/s/6eik2tm4mqhkiyo/css.css?dl=0"/>
 </head>
 
-<body>
 
+
+
+<body style="background-color:powderblue;">
 <div class="topnav">
   <a style="padding: 1px;"  href="http://localhost:8080"><img src="https://preview.ibb.co/kC2Hpq/logotrans.png" alt="logotrans"height="52" width="327" border="0"></a> 
   <a class="active" href="#about" th:href="@{/}">Inicio</a> 
   <a href="/pets/listarO">Mascotas</a>
-  <a id="mypets" href="/pets/myPets">Mis Mascotas</a>
+  <a id="mypets" href="/pets/myPets" style="display:none;">Mis Mascotas</a>
+  <a href="/pets/recentAdopt">Adopciones Recientes</a>
   <div class="topnav-right">
     <a id="session" class="nav-linkk" href="/persons/iniciarSesion">Iniciar Sesión</a>
     <a id="reg" class="nav-linkk" href="/persons/form">Registrarse</a>
@@ -24,9 +28,14 @@
 <div id="email"></div>
 <div id="fnac"></div>
 </div>
+<center>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/tbz5CPt/adopta.png" alt="adopta" border="0"></a>
+</center>
+</body>
+
+<script type="text/javascript" >
 
 
-<script>
 if (typeof(Storage) !== "undefined") {
     // Store
     	document.getElementById("user").innerHTML = sessionStorage.getItem("userJ");
@@ -38,12 +47,12 @@ if (typeof(Storage) !== "undefined") {
     		document.getElementById("session").innerHTML = "Mi Cuenta";
     		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
     		document.getElementById("mypets").href="/pets/myPets/".concat(sessionStorage.getItem("emailJ"));
-    	}else{
-    		document.getElementById("mypets").style.display="none";
+    		document.getElementById("mypets").style.display="initial";
     	}
 } else {
     document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
 }
+
 </script>
-</body>
+
 </html>

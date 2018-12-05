@@ -13,7 +13,8 @@
   <a style="padding: 1px;"  href="http://localhost:8080"><img src="https://preview.ibb.co/kC2Hpq/logotrans.png" alt="logotrans"height="52" width="327" border="0"></a> 
   <a href="#about" th:href="@{/}">Inicio</a>
   <a href="/pets/listarO">Mascotas</a>
-  <a id="mypets" href="/pets/myPets">Mis Mascotas</a>
+  <a id="mypets" href="/pets/myPets" style="display:none;">Mis Mascotas</a>
+  <a href="/pets/recentAdopt">Adopciones Recientes</a>
     <div class="topnav-right">
     <a class="active" id="session"  href="/persons/iniciarSesion">Iniciar Sesión</a>
     <a id="reg" class="nav-linkk" href="/persons/form">Registrarse</a>
@@ -53,9 +54,8 @@ if (typeof(Storage) !== "undefined") {
     		document.getElementById("session").innerHTML = "Mi Cuenta";
     		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
     		document.getElementById("mypets").href="/pets/myPets/".concat(sessionStorage.getItem("emailJ"));
+    		document.getElementById("mypets").style.display="initial";
 
-    	}else{
-    		document.getElementById("mypets").style.display="none";
     	}
 } else {
     document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";

@@ -34,7 +34,7 @@ public class Person implements Serializable {
 
     @Column(name = "fecha_de_nacimiento")
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaDeNacimiento;
 
     @Column(name = "run")

@@ -12,7 +12,8 @@
   <a style="padding: 1px;"  href="http://localhost:8080"><img src="https://preview.ibb.co/kC2Hpq/logotrans.png" alt="logotrans"height="52" width="327" border="0"></a> 
   <a href="#about" th:href="@{/}">Inicio</a>
   <a class="active" href="/pets/listarO">Mascotas</a>
-  <a id="mypets" href="/pets/myPets">Mis Mascotas</a>
+  <a id="mypets" href="/pets/myPets" style="display:none;">Mis Mascotas</a>
+    <a href="/pets/recentAdopt">Adopciones Recientes</a>
     <div class="topnav-right">
     <a id="session" class="nav-linkk" href="/persons/iniciarSesion">Iniciar Sesión</a>
     <a id="reg" class="nav-linkk" href="/persons/form">Registrarse</a>
@@ -30,7 +31,7 @@
             <th>Nombre:</th>
             <th>Fecha de Nacimiento:</th>
             <th>Especie:</th>
-            <th>Adoptar:</th>
+            <th id="adoptT">Adoptar:</th>
         </tr>
         </thead>
         <tbody>
@@ -39,7 +40,7 @@
             <td th:text="${pet.nombre}"></td>
             <td th:text="${pet.fechaDeNacimiento}"></td>
             <td th:text="${pet.especies}"></td>
-            <td><a name= "adoptar" class="btn btn-primary btn-xs" th:href="@{/pets/form/} + ${pet.id}" th:text="'Adoptar'"></a></td>
+            <td><a name= "adoptar" class="btn btn-primary btn-xs" th:href="@{/persons/infoProp/} + ${pet.propietario_email}" th:text="'Adoptar'"></a></td>
         </tr>
         </tbody>
     </table>
@@ -47,12 +48,21 @@
 <script>
 if (typeof(Storage) !== "undefined") {
 
-    	if(sessionStorage.getItem("emailJ").length>0){
+    	if(!sessionStorage.getItem("emailJ")){
+			for (i = 0; i < document.getElementsByName("adoptar").length; i++){
+    			document.getElementsByName("adoptar")[i].innerHTML  = "Inicie sesión para poder adoptar";
+    			document.getElementsByName("adoptar")[i].href="/persons/iniciarSesion"
+    			
+			}
+    		
+    	}else{
     		document.getElementById("reg").innerHTML = "Cerrar Sesión";
     		document.getElementById("reg").href="/cerrarSesion";
     		document.getElementById("session").innerHTML = "Mi Cuenta";
     		document.getElementById("session").href="/persons/form/".concat(sessionStorage.getItem("emailJ"));
     		document.getElementById("mypets").href="/pets/myPets/".concat(sessionStorage.getItem("emailJ"));
+    		document.getElementById("mypets").style.display="initial";
+    	
 
     		
     		if(!esMayorDeEdad()){
@@ -61,8 +71,6 @@ if (typeof(Storage) !== "undefined") {
 	    			document.getElementsByName("adoptar")[i].href="/pets/listarO"; 
     			}
     		}
-    	}else{
-    		document.getElementById("mypets").style.display="none";
     	}
 } else {
     document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
