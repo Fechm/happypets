@@ -106,6 +106,18 @@ public class PersonController {
         model.put("titulo", "Editar Persona");
         return "personForm";
     }
+    @RequestMapping(value = "/infoProp/{email}")
+    public String infoProp(@PathVariable(value = "email") String email, Map<String, Object> model) {
+        Person person = null;
+        if (email.length() > 0) {
+            person = personService.buscarPersonaPorId(email);
+        } else {
+            return "redirect:/person/listarO";
+        }
+        model.put("person", person);
+        model.put("titulo", "Datos de contacto");
+        return "personInfo";
+    }
     @RequestMapping(value = "/delete/{email}")
     public String eliminar(@PathVariable(value = "email") String email, Map<String, Object> model) {
         Person person = null;

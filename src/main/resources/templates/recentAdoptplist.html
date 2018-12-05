@@ -1,46 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta charset="UTF-8">
-    <title th:text="${Titulo}"></title>
-    <link rel="stylesheet" href="https://dl.dropbox.com/s/6eik2tm4mqhkiyo/css.css?dl=0"/>
-</head>
+    <title th:text="${titulo}"></title>
+    <link rel="stylesheet" href="https://dl.dropbox.com/s/6eik2tm4mqhkiyo/css.css?dl=0"/></head>
 
 
+<body>
 
-
-<body style="background-color:powderblue;">
 <div class="topnav">
   <a style="padding: 1px;"  href="http://localhost:8080"><img src="https://preview.ibb.co/kC2Hpq/logotrans.png" alt="logotrans"height="52" width="327" border="0"></a> 
-  <a class="active" href="#about" th:href="@{/}">Inicio</a> 
+  <a href="#about" th:href="@{/}">Inicio</a>
   <a href="/pets/listarO">Mascotas</a>
   <a id="mypets" href="/pets/myPets" style="display:none;">Mis Mascotas</a>
-  <a href="/pets/recentAdopt">Adopciones Recientes</a>
-  <div class="topnav-right">
+  <a class="active" href="/pets/recentAdopt">Adopciones Recientes</a>
+    <div class="topnav-right">
     <a id="session" class="nav-linkk" href="/persons/iniciarSesion">Iniciar Sesión</a>
     <a id="reg" class="nav-linkk" href="/persons/form">Registrarse</a>
   </div>
 </div>
 
+
 <div class="container">
-<div id="user"></div>
-<div id="email"></div>
-<div id="fnac"></div>
+    <h1 th:text="${titulo}"></h1>
+    <p><a th:href="@{/pets/form}" class="btn btn-default btn-xs"></a></p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Imagen:</th>
+            <th>Nombre:</th>
+            <th>Fecha de Nacimiento:</th>
+            <th>Especie:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pet : ${pets}">
+            <td ><img style="width:50px;height:50px;" src="https://i.ytimg.com/vi/wBU1llWxq7U/hqdefault.jpg" alt="Italian Trulli"></td>
+            <td th:text="${pet.nombre}"></td>
+            <td th:text="${pet.fechaDeNacimiento}"></td>
+            <td th:text="${pet.especies}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<center>
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/tbz5CPt/adopta.png" alt="adopta" border="0"></a>
-</center>
-</body>
-
-<script type="text/javascript" >
-
-
+<script>
 if (typeof(Storage) !== "undefined") {
-    // Store
-    	document.getElementById("user").innerHTML = sessionStorage.getItem("userJ");
-    	document.getElementById("email").innerHTML = sessionStorage.getItem("emailJ");
-    	document.getElementById("fnac").innerHTML = sessionStorage.getItem("fnacJ");
+
     	if(sessionStorage.getItem("emailJ").length>0){
     		document.getElementById("reg").innerHTML = "Cerrar Sesión";
     		document.getElementById("reg").href="/cerrarSesion";
@@ -53,6 +58,7 @@ if (typeof(Storage) !== "undefined") {
     document.getElementById("user").innerHTML = "Sorry, your browser does not support Web Storage...";
 }
 
-</script>
 
+</script>
+</body>
 </html>
