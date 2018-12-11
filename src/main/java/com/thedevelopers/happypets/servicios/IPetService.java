@@ -18,5 +18,5 @@ public interface IPetService  {
     void borrarPetPorId(Long id);
 
     void listarEnOrden(List<Pet> pets);
-    List<Picture> buscarFotosPorId(Long id);
+
 }

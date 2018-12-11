@@ -42,7 +42,7 @@ public class PetServiceImpl implements IPetService {
         List<Pet> temp = em.createQuery(query).getResultList();
         for(int i = 0; i<temp.size();i++){
             Long petid = temp.get(i).getId();
-            temp.get(i).setFotos(buscarFotosPorId(petid));
+           
         }
         return temp;
     }
@@ -50,15 +50,10 @@ public class PetServiceImpl implements IPetService {
     @Override
     public Pet buscarPetPorId(Long id) {
         Pet pet = petDao.findById(id).orElse(null);
-        pet.setFotos(buscarFotosPorId(id));
+       
         return pet;
     }
     
-    @Override
-    public List<Picture> buscarFotosPorId(Long id){
-        String query = "from picture where id_pet = id";
-        return em.createQuery(query).getResultList();
-    }
     @Override
     public void borrarPetPorId(Long id) {
         Pet p = petDao.findById(id).orElse(null);
